@@ -1,14 +1,17 @@
 var https = require('https'),
     Http = require('http'),
-    parseString = require('xml2js').parseString;
-var xml = '';
+    parseString = require('xml2js').parseString,
+    iconv = require('iconv-lite'),
+    BufferHelper = require('bufferhelper')
 
-exports.xmlToJson = function (url, callback) {
+exports.xmlToJson = function (url,isBig, callback) {
     var req = Http.get(url, function (res) {
-        var xml = '';
+
+        var bufferhelper = new BufferHelper();
+        
 
         res.on('data', function (chunk) {
-            xml += chunk;
+            bufferhelper.concat(chunk)
         });
 
         res.on('error', function (e) {
@@ -20,7 +23,8 @@ exports.xmlToJson = function (url, callback) {
         });
 
         res.on('end', function () {
-            parseString(xml, function (err, result) {
+            parseString(
+                iconv.decode(bufferhelper.toBuffer(), isBig? 'Big5': 'UTF-8'), function (err, result) {
                 callback(null, result);
             });
         });
