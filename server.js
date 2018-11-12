@@ -10,6 +10,7 @@ app.listen(3000, function () {
 app
     .get('/readFile', xmlModel.readFile)
     .get('/compare', xmlModel.compare)
+    .get('/log', xmlModel.logTest)
 
 // var port = process.env.PORT || 8080;
 // app.listen(port);
