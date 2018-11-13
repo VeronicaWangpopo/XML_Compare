@@ -8,6 +8,7 @@ app.listen(3000, function () {
 });
 
 app
+    .get('/', (req,res) => res.end('Listening on port 3000'))
     .get('/readFile', xmlModel.readFile)
     .get('/compare', xmlModel.compare)
     .get('/log', xmlModel.logTest)

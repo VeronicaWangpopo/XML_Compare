@@ -130,7 +130,7 @@ exports.readFile = function (request, response) {
     var url = request.param('url');
     // var url = "http://210.66.210.214/djmda/api/djmda?x=9997&a=0180sec&b=1&c=4,5,63"
 
-    XML.xmlToJson(url, function (err, data) {
+    XML.xmlToJson(url, false, function (err, data) {
 
         if (err) {
             response.send(err);
